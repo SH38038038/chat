@@ -27,11 +27,11 @@ dependencies {
 //	implementation 'org.springframework.boot:spring-boot-starter-security-oauth2-resource-server'
 
 	// 데이터
-//	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 //	implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
 //	implementation 'org.springframework.boot:spring-boot-starter-flyway'
 //	implementation 'org.flywaydb:flyway-mysql'
-//	runtimeOnly 'com.mysql:mysql-connector-j'
+	runtimeOnly 'com.mysql:mysql-connector-j'
 
 	// 파일
 //	implementation 'io.minio:minio:9.0.4'
