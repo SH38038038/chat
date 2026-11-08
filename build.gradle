@@ -18,11 +18,13 @@ repositories {
 }
 
 dependencies {
-    // 웹&소켓	implementation 'org.springframework.boot:spring-boot-starter-validation'
+    // 웹&소켓
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-webmvc'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
     // 보안
+    implementation 'org.springframework.security:spring-security-crypto' // 임시용 추후 Security 구현 시 교체 예정
 //	implementation 'org.springframework.boot:spring-boot-starter-security'
 //	implementation 'org.springframework.boot:spring-boot-starter-security-oauth2-resource-server'
 
