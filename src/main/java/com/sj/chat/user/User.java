@@ -16,7 +16,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,7 +24,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class User {
 
     @Id
@@ -67,4 +65,17 @@ public class User {
     @Column
     @LastModifiedDate
     private LocalDateTime deletedAt;
+
+    private User(String email, String phoneNumber, String passwordHash, String name, String handle){
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.passwordHash = passwordHash;
+        this.name = name;
+        this.handle = handle;
+        this.status = UserStatus.ACTIVE;
+    }
+
+    public static User signup(String email, String phoneNumber, String passwordHash, String name, String handle){
+        return new User(email, phoneNumber, passwordHash, name, handle);
+    }
 }
