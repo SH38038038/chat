@@ -11,7 +11,8 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles("test")
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@SpringBootTest(classes = {ChatApplication.class}, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = {ChatApplication.class,
+    FixtureConfiguration.class}, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public @interface ApiTest {
 
 }
