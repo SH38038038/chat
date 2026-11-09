@@ -26,4 +26,16 @@ public class TestDataGenerator {
         return "password" + stringBuilder + uuid;
     }
 
+    public static String generatePhoneNumber() {
+        StringBuilder stringBuilder = new StringBuilder("+8210");
+        Random random = new Random();
+        int randomNumber = random.nextInt(100000000);
+        return stringBuilder.append(String.format("%08d", randomNumber)).toString();
+    }
+
+    public static String generateHandle() {
+        String uuid = UUID.randomUUID().toString();
+        return uuid.substring(0, 20);
+    }
+
 }
