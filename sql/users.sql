@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS users;
 
 create table users(
-    id bigint,
+    id bigint AUTO_INCREMENT,
     email varchar(50) ,
     phone_number varchar(13),
     phone_verified_at datetime,
@@ -17,6 +17,5 @@ create table users(
     constraint pk_id primary key (id),
     constraint unique_email unique (email),
     constraint unique_phone_number unique (phone_number),
-    constraint unique_password_hash unique (password_hash),
     constraint unique_handle unique (handle)
 );
