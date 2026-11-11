@@ -2,7 +2,9 @@ package com.sj.chat.user;
 
 import java.time.LocalDateTime;
 
+import org.jspecify.annotations.Nullable;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.Column;
@@ -28,7 +30,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "friends")
 @EntityListeners(AuditingEntityListener.class)
 @IdClass(FriendId.class)
-public class Friend {
+public class Friend implements Persistable<FriendId> {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -50,4 +52,13 @@ public class Friend {
     @CreatedDate
     private LocalDateTime createdAt;
 
+    @Override
+    public @Nullable FriendId getId() {
+        return new FriendId(user.getId(), friend.getId());
+    }
+
+    @Override
+    public boolean isNew() {
+        return createdAt == null;
+    }
 }
