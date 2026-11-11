@@ -4,10 +4,23 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.sj.chat.room.RoomMember;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -51,9 +64,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserStatus status;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    public List<Friend> friends = new ArrayList<>();
-
     @Column(nullable = false)
     @CreatedDate
     private LocalDateTime createdAt;
@@ -62,7 +72,13 @@ public class User {
     @LastModifiedDate
     private LocalDateTime deletedAt;
 
-    private User(String email, String phoneNumber, String passwordHash, String name, String handle){
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    public List<Friend> friends = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    public List<RoomMember> roomMembers = new ArrayList<>();
+
+    private User(String email, String phoneNumber, String passwordHash, String name, String handle) {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.passwordHash = passwordHash;
@@ -71,7 +87,7 @@ public class User {
         this.status = UserStatus.ACTIVE;
     }
 
-    public static User signup(String email, String phoneNumber, String passwordHash, String name, String handle){
+    public static User signup(String email, String phoneNumber, String passwordHash, String name, String handle) {
         return new User(email, phoneNumber, passwordHash, name, handle);
     }
 }
