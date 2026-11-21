@@ -1,10 +1,7 @@
 package com.sj.chat.user.http;
 
-import static com.sj.chat.TestDataGenerator.generateEmail;
-import static com.sj.chat.TestDataGenerator.generateHandle;
-import static com.sj.chat.TestDataGenerator.generatePassword;
-import static com.sj.chat.TestDataGenerator.generatePhoneNumber;
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.sj.chat.TestDataGenerator.*;
+import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -72,5 +69,18 @@ public class SignupHttpTest {
 
         // then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Test
+    void E164_포맷이_아닌_전화번호면_400_Bad_Request를_반환한다() {
+        String phoneNumber = "010-1234-56789";
+        UserSignupRequest requestBody = new UserSignupRequest(generateEmail(), generatePassword(), "Tester1",
+            phoneNumber, generateHandle());
+
+        // when
+        ResponseEntity<Void> response = fixture.signup(requestBody);
+
+        // then
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 }
